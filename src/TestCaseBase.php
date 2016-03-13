@@ -47,7 +47,7 @@ class TestCaseBase extends LaravelTestCase
 
     public function databaseReset()
     {
-        $this->databaseReset();
+        $this->databaseRollback();
         $this->databaseRollback();
     }
 }
