@@ -6,19 +6,17 @@ use Illuminate\Foundation\Console\Kernel;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\TestCase as LaravelTestCase;
 
-class TestCase extends LaravelTestCase
+class TestCaseBase extends LaravelTestCase
 {
-
     use DatabaseMigrations;
 
     protected $baseUrl = 'http://localhost';
 
     public function createApplication()
     {
+        $app = require __DIR__ . '/../../../../bootstrap/app.php';
 
         $this->setEnv();
-
-        $app = require __DIR__ . '/../bootstrap/app.php';
 
         $app->make(Kernel::class)->bootstrap();
 
@@ -27,9 +25,9 @@ class TestCase extends LaravelTestCase
 
     protected function setEnv()
     {
-      putenv('APP_ENV=testing');
-      putenv('DB_CONNECTION=sqlite');
-      putenv('DB_NAME=' . database_path('database.sqlite'));
+        putenv('APP_ENV=testing');
+        putenv('DB_CONNECTION=sqlite');
+        putenv('DB_NAME=' . database_path('database.sqlite'));
     }
 
     public function boot()
