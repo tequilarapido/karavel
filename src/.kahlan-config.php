@@ -2,12 +2,11 @@
 
 use Kahlan\Box\Box;
 use Kahlan\Filter\Filter;
-use Karavel\TestCase;
 
 $box = box('spec', new Box);
 
 $box->service('testCase', function () {
-    return new TestCase;
+    return new KahlanTestCase;
 });
 
 Filter::register('run.testCase', function ($chain) {
