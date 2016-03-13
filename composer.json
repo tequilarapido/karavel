@@ -1,0 +1,23 @@
+{
+    "name": "tequilarapido/karavel",
+    "description": "Testing Laravel applications with kahlan",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Nassif Bourguig",
+            "email": "nbourguig@gmail.com"
+        }
+    ],
+    "require-dev": {
+        "laravel/framework": "^5.2"
+    },
+    "autoload-dev": {
+       "psr-4": {
+           "Karavel\\": "src/"
+       },
+       "files" : [
+           "src/helpers.php"
+       ]
+   },
+    "minimum-stability": "dev"
+}
