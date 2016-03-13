@@ -8,8 +8,6 @@ use Illuminate\Foundation\Testing\TestCase as LaravelTestCase;
 
 class TestCaseBase extends LaravelTestCase
 {
-    use DatabaseMigrations;
-
     protected $baseUrl = 'http://localhost';
 
     public function createApplication()
@@ -37,8 +35,19 @@ class TestCaseBase extends LaravelTestCase
         return $this->app;
     }
 
-    public function destroy()
+    public function databaseMigrate()
+    {
+        $this->artisan('migrate');
+    }
+
+    public function databaseRollback()
     {
         $this->artisan('migrate:rollback');
+    }
+
+    public function databaseReset()
+    {
+        $this->databaseReset();
+        $this->databaseRollback();
     }
 }
