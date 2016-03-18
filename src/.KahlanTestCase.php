@@ -1,6 +1,6 @@
 <?php
 
-class KahlanTestCase extends \Karavel\TestCase 
+class KahlanTestCase extends \Karavel\TestCaseBase
 {
-	
+
 }

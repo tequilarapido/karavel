@@ -10,9 +10,13 @@ class TestCaseBase extends LaravelTestCase
 {
     protected $baseUrl = 'http://localhost';
 
+    public $appPath;
+
     public function createApplication()
     {
-        $app = require __DIR__ . '/../../../../bootstrap/app.php';
+        $this->appPath = realpath(__DIR__ . '/../../../../');
+
+        $app = require $this->appPath . '/bootstrap/app.php';
 
         $this->setEnv();
 
@@ -23,9 +27,12 @@ class TestCaseBase extends LaravelTestCase
 
     protected function setEnv()
     {
-        putenv('APP_ENV=testing');
-        putenv('DB_CONNECTION=sqlite');
-        putenv('DB_NAME=' . database_path('database.sqlite'));
+        if (!file_exists($envFile = $this->appPath . '/.env.testing')) {
+            echo PHP_EOL . '<!> ' . $envFile . '" file was not found.' . PHP_EOL;
+            return;
+        }
+
+        $this->setFromEnvFile($envFile);
     }
 
     public function boot()
@@ -49,5 +56,15 @@ class TestCaseBase extends LaravelTestCase
     {
         $this->databaseRollback();
         $this->databaseRollback();
+    }
+
+    protected function setFromEnvFile($file)
+    {
+        foreach (file($file) as $instruction) {
+            $instruction = trim($instruction);
+            if (!empty($instruction)) {
+                putenv($instruction);
+            }
+        }
     }
 }
